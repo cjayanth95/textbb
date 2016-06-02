@@ -27,16 +27,24 @@ std::vector<cv::Rect> detectLetters1(cv::Mat img , int x , int y,  int s)
     
     cv::findContours( bwImage, contours, hierarchy,CV_RETR_CCOMP, CV_CHAIN_APPROX_SIMPLE );
     std::vector<std::vector<cv::Point> > contours_poly( contours.size() );
-    for( int i = 0; i < contours.size(); i++ )
-        //if (contours[i].area()>s)
-        if (contourArea(contours[i])>s)
-        {
-            cv::approxPolyDP( cv::Mat(contours[i]), contours_poly[i], 3, true );
-            cv::Rect appRect( boundingRect( cv::Mat(contours_poly[i]) ));
-            if (appRect.width>appRect.height)
-                boundRect.push_back(appRect);
-        }
+//    for( int i = 0; i < contours.size(); i++ )
+//        //if (contours[i].area()>s)
+//        if (contourArea(contours[i])>s)
+//        {
+//            cv::approxPolyDP( cv::Mat(contours[i]), contours_poly[i], 3, true );
+//            cv::Rect appRect( boundingRect( cv::Mat(contours_poly[i]) ));
+//            if (appRect.width>appRect.height)
+//                boundRect.push_back(appRect);
+//        }
     //cout<<boundRect.size()<<endl;
+    for( int i = 0; i < contours.size(); i++ ){
+        cv::approxPolyDP( cv::Mat(contours[i]), contours_poly[i], 3, true );
+        cv::Rect appRect( boundingRect( cv::Mat(contours_poly[i]) ));
+         boundRect.push_back(appRect);
+    }
+            //if (contours[i].area()>s)
+    
+
     return boundRect;
 }
 std::vector<cv::Rect> detectLetters(cv::Mat img , int x , int y,  int s)
